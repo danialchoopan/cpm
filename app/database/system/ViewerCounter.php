@@ -6,17 +6,17 @@ namespace App\database\system;
 
 use App\database\DatabaseConnection;
 
-class ViewerCounter
+class ViewerCounter extends DatabaseConnection
 {
-
-    private $databaseConnection;
 
     /**
      * ViewerCounter constructor.
      */
     public function __construct()
     {
-        $this->connect_to_database();
+        parent::__construct();
+        if (php_sapi_name() === 'cli') return;
+
         if ($this->dose_this_ip_visit()) {
             $this->add_count_view();
         } else {
@@ -37,9 +37,8 @@ class ViewerCounter
         $sql = "SELECT * FROM `website_views` WHERE `ip`=?";
         $db = $this->databaseConnection->prepare($sql);
         if ($db->execute([$_SERVER['REMOTE_ADDR']])) {
-            if ($db->rowCount() > 0) {
-                return true;
-            }
+            $row = $db->fetch();
+            return $row ? true : false;
         } else {
             return false;
         }
@@ -49,11 +48,6 @@ class ViewerCounter
     {
         $sql = "INSERT INTO `website_views`(`ip`, `created_at`) VALUES (?,?)";
         $db = $this->databaseConnection->prepare($sql);
-        return $db->execute([$_SERVER['REMOTE_ADDR'], time()]);
-    }
-
-    private function connect_to_database()
-    {
-        $this->databaseConnection = new \PDO($_ENV['DSN_PDO'], $_ENV['USERNAME_DB'], $_ENV['PASSWORD_DB']);
+        return $db->execute([$_SERVER['REMOTE_ADDR'] ?? '127.0.0.1', time()]);
     }
 }

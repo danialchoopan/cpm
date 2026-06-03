@@ -17,26 +17,26 @@ class UserTableAdapter extends DatabaseConnection
         $sql = "INSERT INTO `users`(`full_name`, `password`, `email`, `phone_number`, `created_date`) 
 VALUES (?,?,?,?,?)";
         $db = $this->databaseConnection->prepare($sql);
-        if (!$db->execute([$user->getFullName(), $user->getPassword(), $user->getEmail(), $user->getPhoneNumber(), time()])) {
+        $hashed_password = password_hash($user->getPassword(), PASSWORD_DEFAULT);
+        if (!$db->execute([$user->getFullName(), $hashed_password, $user->getEmail(), $user->getPhoneNumber(), time()])) {
             return false;
         }
-        $this->login($user);
-        return $this->get_user_by_phone_number($user->getPhoneNumber());
-
+        return $this->login($user);
     }
 
     public function login(User $user)
     {
-        $db = $this->databaseConnection->prepare("SELECT `id`,`full_name` FROM `users` WHERE `email`=? AND `password`=?");
-        $db->execute([$user->getEmail(), $user->getPassword()]);
-        if ($db->rowCount() != 0) {
-            $user_data = $db->fetch(2);
-            $_SESSION['user_auth'] = $user_data;
-            return $user_data;
-        } else {
-            return false;
+        $db = $this->databaseConnection->prepare("SELECT `id`,`full_name`,`password` FROM `users` WHERE `email`=?");
+        $db->execute([$user->getEmail()]);
+        $user_data = $db->fetch(2);
+        if ($user_data) {
+            if (password_verify($user->getPassword(), $user_data['password'])) {
+                unset($user_data['password']);
+                $_SESSION['user_auth'] = $user_data;
+                return $user_data;
+            }
         }
-
+        return false;
     }
 
     public function update_profile_photo($photo_id)
@@ -54,10 +54,10 @@ VALUES (?,?,?,?,?)";
         $user_table_1 = $this->databaseConnection->prepare($sql);
         $user_table_1->execute([$auth_user['id']]);
         $tmp_user_model = $user_table_1->fetch(2);
-        if ($tmp_user_model['password'] == md5($old_password)) {
+        if (password_verify($old_password, $tmp_user_model['password'])) {
             $sql = "UPDATE `users` SET `password`=? WHERE `id`=?";
             $user_table = $this->databaseConnection->prepare($sql);
-            $user_table->execute([md5($password), $auth_user['id']]);
+            $user_table->execute([password_hash($password, PASSWORD_DEFAULT), $auth_user['id']]);
             return
                 [
                     'status' => 'success',
@@ -105,7 +105,7 @@ VALUES (?,?,?,?,?)";
             $reset_password_table->execute([$token]);
             $user_id = $reset_password_table->fetch(2)['user_id'];
             $user_table = $this->databaseConnection->prepare("UPDATE `users` SET `password`=? WHERE `id`=?");
-            $user_table->execute([md5($password), $user_id]);
+            $user_table->execute([password_hash($password, PASSWORD_DEFAULT), $user_id]);
             $reset_password_table_2 = $this->databaseConnection->prepare("DELETE FROM `send_reset_password` WHERE `token`=?");
             $reset_password_table_2->execute([$token]);
             return true;
@@ -372,7 +372,8 @@ VALUES (?,?,?,?,?)";
     function register_by_admin(User $user)
     {
         $db = $this->databaseConnection->prepare("INSERT INTO `users`(`id`, `full_name`, `password`, `email`, `phone_number`, `created_date`, `remmber_token`, `validate_token`, `forget_pass_token`,`email_confrimed`, `phone_confrimed`) VALUES (null,?,?,?,?,?,?,?,?,?,?)");
-        if (!$db->execute([$user->getFullName(), $user->getPassword(), $user->getEmail(), $user->getPhoneNumber(), time(), token_maker(), token_maker(), token_maker(), $user->getEmailConfrimed(), $user->getPhoneConfrimed()])) {
+        $hashed_password = password_hash($user->getPassword(), PASSWORD_DEFAULT);
+        if (!$db->execute([$user->getFullName(), $hashed_password, $user->getEmail(), $user->getPhoneNumber(), time(), token_maker(), token_maker(), token_maker(), $user->getEmailConfrimed(), $user->getPhoneConfrimed()])) {
             return false;
         }
         return $this->get_user_by_phone_number($user->getPhoneNumber());

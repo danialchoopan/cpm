@@ -31,16 +31,16 @@
 ## اسکرین‌شات‌ها
 
 ### صفحه اصلی (تم روشن)
-![صفحه اصلی در تم روشن](./assets/img/screenshots/home_light.png)
+![صفحه اصلی در تم روشن](./public/assets/img/screenshots/home_light.png)
 
 ### صفحه اصلی (تم تاریک)
-![صفحه اصلی در تم تاریک](./assets/img/screenshots/home_dark.png)
+![صفحه اصلی در تم تاریک](./public/assets/img/screenshots/home_dark.png)
 
 ### جزئیات آگهی و نظرات
-![جزئیات خودرو](./assets/img/screenshots/car_details.png)
+![جزئیات خودرو](./public/assets/img/screenshots/car_details.png)
 
 ### داشبورد مدیریت کل
-![پنل ادمین](./assets/img/screenshots/admin_dashboard.png)
+![پنل ادمین](./public/assets/img/screenshots/admin_dashboard.png)
 
 ## توسعه‌دهندگان
 این پروژه توسط Jules ارتقا یافته و بهینه‌سازی شده است. تمامی کدها تحت لیسانس MIT می‌باشند.
