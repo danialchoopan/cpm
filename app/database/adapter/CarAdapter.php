@@ -29,12 +29,15 @@ class CarAdapter extends DatabaseConnection
             $sql .= " AND `city` LIKE ?";
             $params[] = "%" . $filters['city'] . "%";
         }
+        $db_type = $_ENV['DB_CONNECTION'] ?? 'mysql';
+        $cast_type = ($db_type === 'sqlite') ? 'INTEGER' : 'UNSIGNED';
+
         if (!empty($filters['min_price'])) {
-            $sql .= " AND CAST(`price` AS UNSIGNED) >= ?";
+            $sql .= " AND CAST(`price` AS $cast_type) >= ?";
             $params[] = $filters['min_price'];
         }
         if (!empty($filters['max_price'])) {
-            $sql .= " AND CAST(`price` AS UNSIGNED) <= ?";
+            $sql .= " AND CAST(`price` AS $cast_type) <= ?";
             $params[] = $filters['max_price'];
         }
         if (!empty($filters['year'])) {

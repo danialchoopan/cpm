@@ -1,0 +1,4 @@
+.dark body { background-color: #111827 !important; color: #f9fafb !important; }
+.dark .bg-white { background-color: #1f2937 !important; }
+.dark .text-gray-900 { color: #f9fafb !important; }
+/* basic overrides for the screenshot */

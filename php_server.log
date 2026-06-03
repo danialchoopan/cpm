@@ -1,25 +1,53 @@
-[Wed Jun  3 11:21:42 2026] PHP 8.3.6 Development Server (http://localhost:8000) started
-[Wed Jun  3 11:21:45 2026] [::1]:35060 Accepted
-[Wed Jun  3 11:21:45 2026] PHP Fatal error:  Uncaught PDOException: SQLSTATE[HY000] [2002] No such file or directory in /app/app/database/system/ViewerCounter.php:57
-Stack trace:
-#0 /app/app/database/system/ViewerCounter.php(57): PDO->__construct()
-#1 /app/app/database/system/ViewerCounter.php(19): App\database\system\ViewerCounter->connect_to_database()
-#2 /app/app/core/hook/Viewer.php(5): App\database\system\ViewerCounter->__construct()
-#3 /app/vendor/composer/autoload_real.php(39): require('...')
-#4 /app/vendor/composer/autoload_real.php(43): {closure}()
-#5 /app/vendor/autoload.php(22): ComposerAutoloaderInit6fbf9350e3b1caed4327937c162707b0::getLoader()
-#6 /app/public/index.php(3): require_once('...')
-#7 {main}
-  thrown in /app/app/database/system/ViewerCounter.php on line 57
-[Wed Jun  3 11:21:45 2026] [::1]:35060 [500]: GET / - Uncaught PDOException: SQLSTATE[HY000] [2002] No such file or directory in /app/app/database/system/ViewerCounter.php:57
-Stack trace:
-#0 /app/app/database/system/ViewerCounter.php(57): PDO->__construct()
-#1 /app/app/database/system/ViewerCounter.php(19): App\database\system\ViewerCounter->connect_to_database()
-#2 /app/app/core/hook/Viewer.php(5): App\database\system\ViewerCounter->__construct()
-#3 /app/vendor/composer/autoload_real.php(39): require('...')
-#4 /app/vendor/composer/autoload_real.php(43): {closure}()
-#5 /app/vendor/autoload.php(22): ComposerAutoloaderInit6fbf9350e3b1caed4327937c162707b0::getLoader()
-#6 /app/public/index.php(3): require_once('...')
-#7 {main}
-  thrown in /app/app/database/system/ViewerCounter.php on line 57
-[Wed Jun  3 11:21:45 2026] [::1]:35060 Closing
+[Wed Jun  3 15:57:41 2026] PHP 8.3.6 Development Server (http://0.0.0.0:8000) started
+[Wed Jun  3 15:57:45 2026] 127.0.0.1:56610 Accepted
+[Wed Jun  3 15:57:45 2026] 127.0.0.1:56610 Closing
+[Wed Jun  3 15:57:45 2026] 127.0.0.1:56626 Accepted
+[Wed Jun  3 15:57:45 2026] 127.0.0.1:56628 Accepted
+[Wed Jun  3 15:57:45 2026] 127.0.0.1:56630 Accepted
+[Wed Jun  3 15:57:45 2026] 127.0.0.1:56632 Accepted
+[Wed Jun  3 15:57:45 2026] 127.0.0.1:56626 Closing
+[Wed Jun  3 15:57:45 2026] 127.0.0.1:56628 Closing
+[Wed Jun  3 15:57:45 2026] 127.0.0.1:56630 Closing
+[Wed Jun  3 15:57:45 2026] 127.0.0.1:56632 Closing
+[Wed Jun  3 15:57:45 2026] 127.0.0.1:56640 Accepted
+[Wed Jun  3 15:57:45 2026] 127.0.0.1:56640 Closing
+[Wed Jun  3 15:57:45 2026] 127.0.0.1:56648 Accepted
+[Wed Jun  3 15:57:45 2026] 127.0.0.1:56648 Closing
+[Wed Jun  3 15:57:45 2026] 127.0.0.1:56662 Accepted
+[Wed Jun  3 15:57:45 2026] 127.0.0.1:56662 Closing
+[Wed Jun  3 15:57:45 2026] 127.0.0.1:56664 Accepted
+[Wed Jun  3 15:57:45 2026] 127.0.0.1:56664 Closing
+[Wed Jun  3 15:57:50 2026] 127.0.0.1:37900 Accepted
+[Wed Jun  3 15:57:50 2026] 127.0.0.1:37900 Closing
+[Wed Jun  3 15:57:50 2026] 127.0.0.1:37912 Accepted
+[Wed Jun  3 15:57:50 2026] 127.0.0.1:37918 Accepted
+[Wed Jun  3 15:57:50 2026] 127.0.0.1:37934 Accepted
+[Wed Jun  3 15:57:50 2026] 127.0.0.1:37946 Accepted
+[Wed Jun  3 15:57:50 2026] 127.0.0.1:37912 Closing
+[Wed Jun  3 15:57:50 2026] 127.0.0.1:37918 Closing
+[Wed Jun  3 15:57:50 2026] 127.0.0.1:37934 Closing
+[Wed Jun  3 15:57:50 2026] 127.0.0.1:37946 Closing
+[Wed Jun  3 15:57:50 2026] 127.0.0.1:37952 Accepted
+[Wed Jun  3 15:57:50 2026] 127.0.0.1:37952 Closing
+[Wed Jun  3 15:57:52 2026] 127.0.0.1:37954 Accepted
+[Wed Jun  3 15:57:52 2026] 127.0.0.1:37954 Closing
+[Wed Jun  3 15:57:52 2026] 127.0.0.1:37960 Accepted
+[Wed Jun  3 15:57:52 2026] 127.0.0.1:37970 Accepted
+[Wed Jun  3 15:57:52 2026] 127.0.0.1:37974 Accepted
+[Wed Jun  3 15:57:52 2026] 127.0.0.1:37984 Accepted
+[Wed Jun  3 15:57:52 2026] 127.0.0.1:37960 Closing
+[Wed Jun  3 15:57:52 2026] 127.0.0.1:37970 Closing
+[Wed Jun  3 15:57:52 2026] 127.0.0.1:37974 Closing
+[Wed Jun  3 15:57:52 2026] 127.0.0.1:37984 Closing
+[Wed Jun  3 15:57:52 2026] 127.0.0.1:37986 Accepted
+[Wed Jun  3 15:57:52 2026] 127.0.0.1:37986 Closing
+[Wed Jun  3 15:57:52 2026] 127.0.0.1:37990 Accepted
+[Wed Jun  3 15:57:52 2026] 127.0.0.1:37990 Closing
+[Wed Jun  3 15:57:52 2026] 127.0.0.1:37996 Accepted
+[Wed Jun  3 15:57:52 2026] 127.0.0.1:38004 Accepted
+[Wed Jun  3 15:57:52 2026] 127.0.0.1:38016 Accepted
+[Wed Jun  3 15:57:52 2026] 127.0.0.1:38028 Accepted
+[Wed Jun  3 15:57:52 2026] 127.0.0.1:37996 Closing
+[Wed Jun  3 15:57:52 2026] 127.0.0.1:38004 Closing
+[Wed Jun  3 15:57:52 2026] 127.0.0.1:38016 Closing
+[Wed Jun  3 15:57:52 2026] 127.0.0.1:38028 Closing

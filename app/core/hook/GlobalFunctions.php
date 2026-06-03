@@ -16,7 +16,7 @@ function redirect($url)
 
 function flash_session($name)
 {
-    $tmp_session_name = $_SESSION[$name];
+    $tmp_session_name = $_SESSION[$name] ?? null;
     unset($_SESSION[$name]);
     return $tmp_session_name;
 }
@@ -50,7 +50,7 @@ function token_maker($size = 200)
     $letters = str_shuffle(rand(1111111, 9999999) . str_shuffle($letters . rand(1111111, 9999999) . $letters . $letters . rand(1111111, 9999999) . $letters . $letters . $letters));
     $array_letters = str_split($letters);
     for ($i = 0; $i <= $size; $i++) {
-        $token .= $array_letters[$i];
+        $token .= $array_letters[$i] ?? '';
     }
     return $token;
 }
@@ -76,18 +76,24 @@ function show_img_user($name)
 function show_by_photo_id($id)
 {
     $photo_adapter = new \App\database\adapter\PhotoAdapter();
-    return show_img_user($photo_adapter->find($id)['name']);
+    return show_img_user($photo_adapter->find($id)['name'] ?? '');
 }
 
 function connect_to_database()
 {
+    $db_type = $_ENV['DB_CONNECTION'] ?? 'mysql';
+    if ($db_type === 'sqlite') {
+        $db_path = $_ENV['DB_DATABASE'] ?? dirname(__DIR__, 3) . '/database.sqlite';
+        return new PDO("sqlite:$db_path");
+    }
     return new PDO($_ENV['DSN_PDO'], $_ENV['USERNAME_DB'], $_ENV['PASSWORD_DB']);
 }
 
 function get_setting()
 {
-    $sql = "SELECT * FROM `site_setting`";
-    $setting = connect_to_database()->prepare($sql);
+    $sql = "SELECT * FROM `site_setting` LIMIT 1";
+    $db = connect_to_database();
+    $setting = $db->prepare($sql);
     $setting->execute();
     return $setting->fetch(2);
 }
@@ -133,15 +139,16 @@ function show_status_car_adapter($id)
 function cp_jdate($time)
 {
     list($y, $m, $d) = explode('-', date('Y-n-d', $time));
-    return $j_date_string = gregorian_to_jalali($y, $m, $d, '/'); //خروجی رشته
+    return gregorian_to_jalali($y, $m, $d, '/'); //خروجی رشته
 
 }//show date site
 function show_date_php($time_php, $format = 'Y-n-d', $delimiter = '-')
 {
-    $date_format = get_setting()['format_date'];
+    $setting = get_setting();
+    $date_format = $setting['format_date'] ?? 'fa';
     if ($date_format == 'fa') {
         list($y, $m, $d) = explode($delimiter, date($format, $time_php));
-        return $j_date_string = gregorian_to_jalali($y, $m, $d, '/'); //خروجی رشته
+        return gregorian_to_jalali($y, $m, $d, '/'); //خروجی رشته
     } else if ($date_format == 'en') {
         return date($format, $time_php);
     }
@@ -149,7 +156,8 @@ function show_date_php($time_php, $format = 'Y-n-d', $delimiter = '-')
 
 function show_condition_by_id($id)
 {
-    $result = connect_to_database()->prepare("SELECT * FROM `conditions` WHERE `id`=?");
+    $db = connect_to_database();
+    $result = $db->prepare("SELECT * FROM `conditions` WHERE `id`=?");
     $result->execute([$id]);
     return $result->fetch(2);
 }

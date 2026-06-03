@@ -127,8 +127,15 @@ class Route
         return $definedPathParams;
     }
 
-    public static function commandRun(callable $action, array $args)
+    public static function commandRun($action, array $args)
     {
+        if (is_array($action)) {
+            $className = $action[0];
+            $methodName = $action[1];
+            $instance = new $className;
+            $action = [$instance, $methodName];
+        }
+
         self::runHookFunctions(array('uri' => self::$uri, 'params' => self::$params, 'action' => $action, 'args' => $args));
         if (self::$founded) {
             $result = (call_user_func_array($action, $args));
@@ -138,11 +145,11 @@ class Route
         }
     }
 
-    public static function go($methodPattern, $uri, callable $action)
+    public static function go($methodPattern, $uri, $action)
     {
         if (self::findMethod($methodPattern)) {
             foreach (self::$methods as $method) {
-                if (is_callable(array(__CLASS__, $method))) {
+                if (method_exists(__CLASS__, $method)) {
                     if (call_user_func(array(__CLASS__, $method), $uri, $action)) {
                         return true;
                     }
@@ -152,7 +159,7 @@ class Route
         return false;
     }
 
-    public static function get($uri, callable $action)
+    public static function get($uri, $action)
     {
         $request_method = strtolower($_SERVER['REQUEST_METHOD']);
         if ($request_method == 'get') {
@@ -167,7 +174,7 @@ class Route
         }
     }
 
-    public static function ApiGet($uri, callable $action)
+    public static function ApiGet($uri, $action)
     {
         $uri = 'api' . $uri;
         $request_method = strtolower($_SERVER['REQUEST_METHOD']);
@@ -183,7 +190,7 @@ class Route
         }
     }
 
-    public static function post($uri, callable $action)
+    public static function post($uri, $action)
     {
         $request_method = strtolower($_SERVER['REQUEST_METHOD']);
         if ($request_method == 'post') {
@@ -198,7 +205,7 @@ class Route
         }
     }
 
-    public static function ApiPost($uri, callable $action)
+    public static function ApiPost($uri, $action)
     {
         $uri = 'api' . $uri;
         $request_method = strtolower($_SERVER['REQUEST_METHOD']);
