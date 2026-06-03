@@ -24,20 +24,32 @@
 ۴. تنظیمات دیتابیس را در فایل `.env` (بر اساس `.env.example`) وارد کنید.
 ۵. برای اجرای سرور داخلی PHP، دستور زیر را در ریشه پروژه بزنید:
    ```bash
-   php -S localhost:8000
+   php -S localhost:8000 -t public
    ```
 ۶. آدرس `http://localhost:8000` را در مرورگر باز کنید.
+
+## ساختار پوشه‌بندی پروژه
+پروژه از ساختار استاندارد MVC پیروی می‌کند:
+- **app/**: کدهای سمت سرور شامل کنترلرها، مدل‌ها و هسته سیستم.
+    - **controller/**: مدیریت درخواست‌ها و منطق برنامه.
+    - **core/**: کلاس‌های پایه مانند روتینگ و ویو.
+    - **database/**: مدل‌ها و آداپتورهای دیتابیس و فایل Seed.
+    - **views/**: قالب‌های فرانت‌آند (Blade).
+- **public/**: پوشه عمومی و نقطه ورود برنامه.
+    - **assets/**: تمامی فایل‌های محلی (CSS، JS، فونت وزیرمتن، تصاویر).
+    - **index.php**: فایل اصلی اجرایی.
+- **vendor/**: وابستگی‌های نصب شده توسط Composer.
 
 ## اسکرین‌شات‌ها
 
 ### صفحه اصلی
-![صفحه اصلی در تم روشن](./assets/img/screenshots/home_light.png)
+![صفحه اصلی در تم روشن](./public/assets/img/screenshots/home_light.png)
 
 ### جزئیات آگهی و نظرات
-![جزئیات خودرو](./assets/img/screenshots/car_details.png)
+![جزئیات خودرو](./public/assets/img/screenshots/car_details.png)
 
 ### داشبورد مدیریت کل
-![پنل ادمین](./assets/img/screenshots/admin_dashboard.png)
+![پنل ادمین](./public/assets/img/screenshots/admin_dashboard.png)
 
 ## توسعه‌دهندگان
 این پروژه توسط Jules ارتقا یافته و بهینه‌سازی شده است. تمامی کدها تحت لیسانس MIT می‌باشند.

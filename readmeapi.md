@@ -20,7 +20,7 @@
 - id (PK)
 - full_name
 - email
-- password (MD5)
+- password (Bcrypt)
 - phone_number
 - created_date
 - email_confrimed
