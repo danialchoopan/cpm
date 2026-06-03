@@ -4,8 +4,6 @@
 namespace App\database\model;
 
 
-use App\database\interfaces\AdapterBasic;
-
 class Car
 {
     private $id;
@@ -14,8 +12,13 @@ class Car
     private $photo_id;
     private $name;
     private $description;
+    private $province;
+    private $city;
+    private $mileage;
+    private $year;
     private $price;
     private $is_car_open_for_sell;
+    private $is_approved;
     private $created_at;
     private $updated_at;
 
@@ -135,6 +138,70 @@ class Car
     /**
      * @return mixed
      */
+    public function getProvince()
+    {
+        return $this->province;
+    }
+
+    /**
+     * @param mixed $province
+     */
+    public function setProvince($province)
+    {
+        $this->province = $province;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCity()
+    {
+        return $this->city;
+    }
+
+    /**
+     * @param mixed $city
+     */
+    public function setCity($city)
+    {
+        $this->city = $city;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getMileage()
+    {
+        return $this->mileage;
+    }
+
+    /**
+     * @param mixed $mileage
+     */
+    public function setMileage($mileage)
+    {
+        $this->mileage = $mileage;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getYear()
+    {
+        return $this->year;
+    }
+
+    /**
+     * @param mixed $year
+     */
+    public function setYear($year)
+    {
+        $this->year = $year;
+    }
+
+    /**
+     * @return mixed
+     */
     public function getIsCarOpenForSell()
     {
         return $this->is_car_open_for_sell;
@@ -146,6 +213,22 @@ class Car
     public function setIsCarOpenForSell($is_car_open_for_sell)
     {
         $this->is_car_open_for_sell = $is_car_open_for_sell;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getIsApproved()
+    {
+        return $this->is_approved;
+    }
+
+    /**
+     * @param mixed $is_approved
+     */
+    public function setIsApproved($is_approved)
+    {
+        $this->is_approved = $is_approved;
     }
 
     /**

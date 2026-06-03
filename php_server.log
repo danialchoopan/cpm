@@ -1,0 +1,25 @@
+[Wed Jun  3 11:21:42 2026] PHP 8.3.6 Development Server (http://localhost:8000) started
+[Wed Jun  3 11:21:45 2026] [::1]:35060 Accepted
+[Wed Jun  3 11:21:45 2026] PHP Fatal error:  Uncaught PDOException: SQLSTATE[HY000] [2002] No such file or directory in /app/app/database/system/ViewerCounter.php:57
+Stack trace:
+#0 /app/app/database/system/ViewerCounter.php(57): PDO->__construct()
+#1 /app/app/database/system/ViewerCounter.php(19): App\database\system\ViewerCounter->connect_to_database()
+#2 /app/app/core/hook/Viewer.php(5): App\database\system\ViewerCounter->__construct()
+#3 /app/vendor/composer/autoload_real.php(39): require('...')
+#4 /app/vendor/composer/autoload_real.php(43): {closure}()
+#5 /app/vendor/autoload.php(22): ComposerAutoloaderInit6fbf9350e3b1caed4327937c162707b0::getLoader()
+#6 /app/public/index.php(3): require_once('...')
+#7 {main}
+  thrown in /app/app/database/system/ViewerCounter.php on line 57
+[Wed Jun  3 11:21:45 2026] [::1]:35060 [500]: GET / - Uncaught PDOException: SQLSTATE[HY000] [2002] No such file or directory in /app/app/database/system/ViewerCounter.php:57
+Stack trace:
+#0 /app/app/database/system/ViewerCounter.php(57): PDO->__construct()
+#1 /app/app/database/system/ViewerCounter.php(19): App\database\system\ViewerCounter->connect_to_database()
+#2 /app/app/core/hook/Viewer.php(5): App\database\system\ViewerCounter->__construct()
+#3 /app/vendor/composer/autoload_real.php(39): require('...')
+#4 /app/vendor/composer/autoload_real.php(43): {closure}()
+#5 /app/vendor/autoload.php(22): ComposerAutoloaderInit6fbf9350e3b1caed4327937c162707b0::getLoader()
+#6 /app/public/index.php(3): require_once('...')
+#7 {main}
+  thrown in /app/app/database/system/ViewerCounter.php on line 57
+[Wed Jun  3 11:21:45 2026] [::1]:35060 Closing

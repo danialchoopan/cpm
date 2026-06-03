@@ -21,7 +21,7 @@ class UserAuthController
         $email = $_POST['email'];
         $phone_number = $_POST['phone_number'];
         if (!preg_match("/(09)[0-9]{9}/", $phone_number)) {
-            set_massage('لطفا یک شماره همراه معتبر وارد کنید', 'warning', false, false);
+            set_message('لطفا یک شماره همراه معتبر وارد کنید', 'warning', false, false);
             return redirect(route('register/user'));
         }
         $password = $_POST['password'];
@@ -34,7 +34,7 @@ class UserAuthController
         $user_registered = $userAdapter->register($user_model);
         var_dump($user_registered);
         if ($user_registered) {
-            set_massage('نام نویسی شما با موفقیت انجام شد', 'success', true, true);
+            set_message('نام نویسی شما با موفقیت انجام شد', 'success', true, true);
             return redirect(route(''));
         } else {
             error_session();
@@ -51,7 +51,7 @@ class UserAuthController
     {
         $validate_code = $_POST['validate_code'];
         $user_adapter = new UserTableAdapter();
-        set_massage($user_adapter->confirm_phone_sms_code($validate_code), 'success', false, true);
+        set_message($user_adapter->confirm_phone_sms_code($validate_code), 'success', false, true);
         redirect(route('user/validate/phone'));
     }
 
@@ -64,7 +64,7 @@ class UserAuthController
     {
         $user_adapter = new UserTableAdapter();
         if ($user_adapter->confirm_email($token)) {
-            set_massage('پست الکترونیک شما با موفقیت تایید شد', 'success', true, true);
+            set_message('پست الکترونیک شما با موفقیت تایید شد', 'success', true, true);
             redirect(route(''));
         } else {
             echo '<h1>invalid code please check again</h1>';
@@ -80,7 +80,7 @@ class UserAuthController
     {
         $email = $_POST['email'];
         $user_adapter = new UserTableAdapter();
-        set_massage($user_adapter->SEND_RESET_PASSWORD_EMAIL($email), 'primary');
+        set_message($user_adapter->SEND_RESET_PASSWORD_EMAIL($email), 'primary');
         redirect(route('forget/password/user'));
     }
 
@@ -104,16 +104,16 @@ class UserAuthController
             $re_password = $_POST['re_password'];
             if ($password == $re_password) {
                 if ($user_adapter->RESET_PASSWORD($token, $password)) {
-                    set_massage('رمز عبور شما بازگشایی شد می توانید با رمز عبور جدید خوب وارد شوید', 'success', true, true);
+                    set_message('رمز عبور شما بازگشایی شد می توانید با رمز عبور جدید خوب وارد شوید', 'success', true, true);
                 } else {
-                    set_massage('مشکلی پیش آمد رمز عبور شما بازگشایی نشد', 'danger', false, true);
+                    set_message('مشکلی پیش آمد رمز عبور شما بازگشایی نشد', 'danger', false, true);
                 }
                 redirect(route(''));
             } else {
-                set_massage('رمز عبور ها با هم برار نیستند', 'warning');
+                set_message('رمز عبور ها با هم برار نیستند', 'warning');
             }
         } else {
-            set_massage('توکن وجود ندارد', 'danger');
+            set_message('توکن وجود ندارد', 'danger');
         }
         redirect(route("user/reset/password/$token"));
     }

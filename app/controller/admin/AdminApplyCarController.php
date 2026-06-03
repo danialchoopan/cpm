@@ -24,7 +24,7 @@ class AdminApplyCarController
     {
         $car_apply_adapter = new ApplyCarAdapter();
         if ($car_apply_adapter->update_status($status_id, $request_id)) {
-            set_massage("با موفیت بروز شد وضعیت مورد نظر شما", 'success');
+            set_message("با موفیت بروز شد وضعیت مورد نظر شما", 'success');
         } else {
             error_session();
         }

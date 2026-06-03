@@ -59,7 +59,7 @@ class BlogController
             $blog_comment->setPostId($post_id);
             $blog_comment_adapter = new BlogCommentAdapter();
             if ($blog_comment_adapter->insert($blog_comment)) {
-                set_massage('نظر شما باموفیت ثبت شد پس از تایید نمایش داده خواهد شد', 'success');
+                set_message('نظر شما باموفیت ثبت شد پس از تایید نمایش داده خواهد شد', 'success');
             } else {
                 error_session();
             }

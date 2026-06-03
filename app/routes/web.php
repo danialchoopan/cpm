@@ -19,6 +19,7 @@ use App\controller\BlogController;
 use App\controller\CarBrandController;
 use App\controller\CarPageController;
 use App\controller\HomePageController;
+use App\controller\ReviewController;
 use App\controller\user\UserAuthController;
 use App\controller\user\UserProfileController;
 use App\core\Route;
@@ -68,6 +69,7 @@ Route::post('/profile/user/level/3/apply/{id_request}', [UserProfileController::
 //car page
 Route::get('/car', [CarPageController::class, 'index']);
 Route::get('/car/show/{id}', [CarPageController::class, 'show']);
+Route::post('/car/show/{id}/review', [ReviewController::class, 'store']);
 Route::post('/car/show/{car_id}/complete/request', [CarPageController::class, 'complete_request_show']);
 Route::post('/car/show/{car_id}/complete/request/store', [CarPageController::class, 'complete_request']);
 //brand
@@ -156,6 +158,7 @@ Route::post("$prefix/conditions/destroy", [AdminConditionCarSellController::clas
 
 //car admin
 Route::get("$prefix/cars", [AdminCarController::class, 'index']);
+Route::post("$prefix/cars/approve", [AdminDashController::class, 'approve_car']);
 Route::get("$prefix/cars/create", [AdminCarController::class, 'create']);
 Route::post("$prefix/cars", [AdminCarController::class, 'store']);
 Route::get("$prefix/cars/{id}/edit", [AdminCarController::class, 'edit']);

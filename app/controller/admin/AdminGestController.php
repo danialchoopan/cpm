@@ -32,7 +32,7 @@ class AdminGestController
         $gest_adapter->insert(
             $apply_adapter->find($apply_id)['user_id'], $apply_id, 12, $each_month
         );
-        set_massage("درخواست شما با موفیت ایجاد شد ");
+        set_message("درخواست شما با موفیت ایجاد شد ");
         return redirect(route('admin/dash/gests'));
     }
 

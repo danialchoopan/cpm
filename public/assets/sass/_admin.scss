@@ -1,0 +1,54 @@
+.cp-admin-container {
+  background-color: whitesmoke;
+}
+
+.cp-admin-header {
+  background-color: $nav-background;
+  padding: 20px;
+  color: white;
+
+  ul {
+    display: flex;
+    flex-direction: row;
+  }
+
+  ul li {
+    margin-right: 10px;
+    list-style: none;
+  }
+}
+
+.cp-admin-exit {
+  color: red;
+}
+
+
+.cp-admin-content {
+  padding: 10px;
+  height: 100vh;
+  border-radius: 5px;
+}
+
+.cp-admin-menu {
+  width: 100%;
+  font-size: 23px;
+  padding: 10px;
+  background-color: #ffeeba;
+  text-align: center;
+  list-style: none;
+  cursor: pointer;
+}
+
+.cp-admin-menu-ul {
+  text-align: center;
+  list-style: none;
+
+  li {
+    margin: 5px;
+    border-bottom: 1px solid;
+    font-size: 21px;
+    padding: 10px;
+    background-color: aliceblue;
+    cursor: pointer;
+  }
+}

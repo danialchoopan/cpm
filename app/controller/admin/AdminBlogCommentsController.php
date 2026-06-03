@@ -32,7 +32,7 @@ class AdminBlogCommentsController
     {
         $blogCommentAdapter = new BlogCommentAdapter();
         if ($blogCommentAdapter->update_confirmed($comment_id, $status_id)) {
-            set_massage('نظر مورد نظر شما با موفیت بروزشد', 'success');
+            set_message('نظر مورد نظر شما با موفیت بروزشد', 'success');
         } else {
             error_session();
         }

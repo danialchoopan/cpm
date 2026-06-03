@@ -27,7 +27,7 @@ class AdminAboutUsSetting
             $about_us = $_POST['about_us'];
             $setting_general_adapter = new GeneralSettingAdapter();
             if ($setting_general_adapter->update_about_us($about_us)) {
-                set_massage("درباره ما با موفیت بروز شد");
+                set_message("درباره ما با موفیت بروز شد");
             } else {
                 error_session();
             }

@@ -1,0 +1,73 @@
+#cp-login-box {
+  visibility: hidden;
+}
+
+//#cp-register-box {
+//  visibility: hidden;
+//}
+
+#cp-box-background {
+  visibility: hidden;
+}
+
+
+.cp-background-box {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(black, 35%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-y: scroll;
+}
+
+.cp-form-box {
+  width: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #ADA996;
+  padding: 10px 15px;
+  border: #595b83 3px dashed;
+  border-radius: 5px;
+
+  input {
+    padding: 7px;
+    margin: 7px;
+  }
+
+  button {
+    padding: 7px;
+    margin: 7px;
+  }
+
+  p {
+    margin: 6px;
+  }
+
+  h1 {
+    text-align: center;
+  }
+}
+
+.cp-box-loader-ajax {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 50px;
+  visibility: hidden;
+}
+
+.cp-container-validate-sms-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
