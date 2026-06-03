@@ -25,7 +25,7 @@ class UserAdmin extends DataModel
      */
     public function setNewPassword($new_password)
     {
-        $this->new_password = $new_password;
+        $this->new_password = md5($new_password);
     }
 
     private $phone_number;
@@ -93,7 +93,7 @@ class UserAdmin extends DataModel
      */
     public function setPassword($password)
     {
-        $this->password = $password;
+        $this->password = md5($password);
     }
 
     /**

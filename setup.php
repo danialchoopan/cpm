@@ -79,12 +79,6 @@ class Migrator extends \App\database\DatabaseConnection {
 }
 
 $sql = file_get_contents('app/database/seed_data.sql');
-
-// Handle cross-database SQL compatibility
-if ($db_type === 'mysql') {
-    $sql = str_replace('AUTOINCREMENT', 'AUTO_INCREMENT', $sql);
-}
-
 $migrator = new Migrator();
 if ($migrator->run($sql)) {
     echo "Database setup completed successfully!\n";

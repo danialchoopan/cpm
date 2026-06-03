@@ -79,7 +79,7 @@ class User extends DataModel
      */
     public function setPassword($password)
     {
-        $this->password = $password;
+        $this->password = md5($password);
     }
 
     /**

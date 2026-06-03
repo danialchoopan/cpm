@@ -28,8 +28,8 @@ VALUES (?,?,?,?,?)";
     {
         $db = $this->databaseConnection->prepare("SELECT `id`,`full_name`,`password` FROM `users` WHERE `email`=?");
         $db->execute([$user->getEmail()]);
-        $user_data = $db->fetch(2);
-        if ($user_data) {
+        if ($db->rowCount() != 0) {
+            $user_data = $db->fetch(2);
             if (password_verify($user->getPassword(), $user_data['password'])) {
                 unset($user_data['password']);
                 $_SESSION['user_auth'] = $user_data;
@@ -105,7 +105,7 @@ VALUES (?,?,?,?,?)";
             $reset_password_table->execute([$token]);
             $user_id = $reset_password_table->fetch(2)['user_id'];
             $user_table = $this->databaseConnection->prepare("UPDATE `users` SET `password`=? WHERE `id`=?");
-            $user_table->execute([password_hash($password, PASSWORD_DEFAULT), $user_id]);
+            $user_table->execute([md5($password), $user_id]);
             $reset_password_table_2 = $this->databaseConnection->prepare("DELETE FROM `send_reset_password` WHERE `token`=?");
             $reset_password_table_2->execute([$token]);
             return true;

@@ -28,7 +28,7 @@ class UserAdminAdapter extends DatabaseConnection
             $sql = "UPDATE `admins` SET `full_name`=?,`username`=?,`password`=? WHERE `id`=?";
             $db = $this->databaseConnection->prepare($sql);
             return $db->execute([$userAdmin->getFullName(), $userAdmin->getUsername(),
-                password_hash($userAdmin->getPassword(), PASSWORD_DEFAULT), $userAdmin->getId()]);
+                $userAdmin->getPassword(), $userAdmin->getId()]);
         else:
             $sql = "UPDATE `admins` SET `full_name`=?,`username`=? WHERE `id`=?";
             $db = $this->databaseConnection->prepare($sql);

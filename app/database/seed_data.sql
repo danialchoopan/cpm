@@ -108,51 +108,30 @@ CREATE TABLE IF NOT EXISTS `blog_posts` (
   `created_at` INTEGER NOT NULL
 );
 
--- ساخت جدول درخواست‌های خرید (Apply Car)
-CREATE TABLE IF NOT EXISTS `apply_car` (
-  `id` INTEGER PRIMARY KEY AUTOINCREMENT,
-  `user_id` INTEGER NOT NULL,
-  `car_id` INTEGER NOT NULL,
-  `condition_id` INTEGER NOT NULL,
-  `msg` TEXT,
-  `n_code` TEXT,
-  `account_number` TEXT,
-  `status` INTEGER DEFAULT 0,
-  `level` INTEGER DEFAULT 0,
-  `created_at` INTEGER NOT NULL
-);
-
--- ساخت جدول نظرات بلاگ (Blog Comment)
-CREATE TABLE IF NOT EXISTS `blog_comment` (
-  `id` INTEGER PRIMARY KEY AUTOINCREMENT,
-  `user_id` INTEGER NOT NULL,
-  `blogpost_id` INTEGER NOT NULL,
-  `content` TEXT NOT NULL,
-  `confirmed` INTEGER DEFAULT 0,
-  `created_at` INTEGER NOT NULL
-);
-
 -- درج داده‌های پایه
 INSERT INTO `site_setting` (`site_name`, `site_description`, `format_date`) VALUES ('CPM - سامانه خودرو', 'بهترین پلتفرم خرید و فروش خودرو', 'fa');
 
--- درج برندها (استفاده از سینتکس استاندارد برای سازگاری با MySQL و SQLite)
-INSERT INTO `brand` (`name`, `description`, `created_at`) VALUES ('پژو', 'خودروهای خانواده پژو فرانسه', 1672531200);
-INSERT INTO `brand` (`name`, `description`, `created_at`) VALUES ('تویوتا', 'برند ژاپنی با کیفیت جهانی', 1672531200);
+INSERT INTO `brand` (`name`, `description`, `created_at`) VALUES
+('پژو', 'خودروهای خانواده پژو فرانسه', 1672531200),
+('تویوتا', 'برند ژاپنی با کیفیت جهانی', 1672531200);
 
--- درج شرایط معامله
-INSERT INTO `conditions` (`name`, `description`, `created_at`) VALUES ('نقدی', 'پرداخت کامل در هنگام معامله', 1672531200);
-INSERT INTO `conditions` (`name`, `description`, `created_at`) VALUES ('اقساطی', 'شرایط متنوع ۱۲ تا ۳۶ ماهه', 1672531200);
+INSERT INTO `conditions` (`name`, `description`, `created_at`) VALUES
+('نقدی', 'پرداخت کامل در هنگام معامله', 1672531200),
+('اقساطی', 'شرایط متنوع ۱۲ تا ۳۶ ماهه', 1672531200);
 
-INSERT INTO `photo` (`name`, `created_at`) VALUES ('206.jpg', 1672531200);
-INSERT INTO `photo` (`name`, `created_at`) VALUES ('camry.jpg', 1672531200);
-INSERT INTO `photo` (`name`, `created_at`) VALUES ('samand.jpg', 1672531200);
+INSERT INTO `photo` (`name`, `created_at`) VALUES
+('206.jpg', 1672531200),
+('camry.jpg', 1672531200),
+('samand.jpg', 1672531200);
 
--- درج ادمین فرضی (رمز عبور: admin)
-INSERT INTO `admins` (`full_name`, `username`, `password`, `created_date`) VALUES ('مدیر سیستم', 'admin', '$2y$10$R4Whyb0TeUVQIHkn3npxTePOrKuyLhw3StUSBBt5yMW.ah86gCfuC', 1672531200);
+-- درج ادمین فرضی
+INSERT INTO `admins` (`full_name`, `username`, `password`, `created_date`) VALUES
+('مدیر سیستم', 'admin', 'admin', 1672531200);
 
--- درج کاربران فرضی (رمز عبور: 123456)
-INSERT INTO `users` (`full_name`, `password`, `email`, `phone_number`, `created_date`, `email_confrimed`, `phone_confrimed`) VALUES ('احمد محمدی', '$2y$10$K0yuGlZk6.L/ff82h2SlM.QMM/9MmzsHSIjHzFgktFub0ofCPuNZq', 'ahmad@example.com', '09121112233', 1672531200, 1, 1);
-INSERT INTO `users` (`full_name`, `password`, `email`, `phone_number`, `created_date`, `email_confrimed`, `phone_confrimed`) VALUES ('سارا علوی', '$2y$10$K0yuGlZk6.L/ff82h2SlM.QMM/9MmzsHSIjHzFgktFub0ofCPuNZq', 'sara@example.com', '09122223344', 1672617600, 1, 1);
+-- درج کاربران فرضی
+INSERT INTO `users` (`full_name`, `password`, `email`, `phone_number`, `created_date`, `email_confrimed`, `phone_confrimed`) VALUES
+('احمد محمدی', 'e10adc3949ba59abbe56e057f20f883e', 'ahmad@example.com', '09121112233', 1672531200, 1, 1),
+('سارا علوی', 'e10adc3949ba59abbe56e057f20f883e', 'sara@example.com', '09122223344', 1672617600, 1, 1);
 
 -- درج خودروهای فرضی
 INSERT INTO `car` (`brand_id`, `condition_id`, `photo_id`, `name`, `description`, `province`, `city`, `mileage`, `year`, `price`, `is_car_open_for_sell`, `is_approved`, `created_at`, `updated_at`) VALUES
