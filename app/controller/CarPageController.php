@@ -8,6 +8,7 @@ use App\core\View;
 use App\database\adapter\ApplyCarAdapter;
 use App\database\adapter\BrandAdapter;
 use App\database\adapter\CarAdapter;
+use App\database\adapter\ReviewAdapter;
 use App\database\adapter\ConditionCarSellAdapter;
 use App\database\model\ApplyCar;
 
@@ -17,9 +18,19 @@ class CarPageController
     {
         $car_adapter = new CarAdapter();
         $brand_adapter = new BrandAdapter();
+
+        $filters = [
+            'brand_id' => $_GET['brand_id'] ?? null,
+            'city' => $_GET['city'] ?? null,
+            'min_price' => $_GET['min_price'] ?? null,
+            'max_price' => $_GET['max_price'] ?? null,
+            'year' => $_GET['year'] ?? null,
+        ];
+
         return View::Create('car.index', [
-            'cars' => $car_adapter->all(),
-            'brands' => $brand_adapter->all()
+            'cars' => $car_adapter->all($filters, true), // نمایش فقط آگهی‌های تایید شده
+            'brands' => $brand_adapter->all(),
+            'filters' => $filters
         ]);
     }
 
@@ -27,10 +38,18 @@ class CarPageController
     {
         $car_adapter = new CarAdapter();
         $car = $car_adapter->find($id);
+        if (!$car || !$car['is_approved']) { // آگهی باید تایید شده باشد
+            redirect(route('car'));
+        }
+
         $brand_adapter = new BrandAdapter();
+        $review_adapter = new ReviewAdapter();
+
         return View::Create('car.show', [
             'car' => $car,
-            'brand' => $brand_adapter->find($car['brand_id'])
+            'brand' => $brand_adapter->find($car['brand_id']),
+            'reviews' => $review_adapter->get_reviews_by_car_id($id),
+            'avg_ratings' => $review_adapter->get_average_ratings($id)
         ]);
     }
 
@@ -60,10 +79,10 @@ class CarPageController
         $car_apply_adapter = new ApplyCarAdapter();
         if ($car_apply_adapter->insert($apply_car_model)) {
             $msg = 'در خواست شما با موفقیت ثبت شد همکاران ما بزودی با شما تماس خواهند گرفت پست الکترونیک خود را برسی کنید';
-            set_massage($msg, 'success', false, true);
+            set_message($msg, 'success', false, true);
         } else {
             $msg = 'درخواست شما متاسفانه ثبت نشد لطفا دوباره امتحان کنید';
-            set_massage($msg, 'danger', false, true);
+            set_message($msg, 'danger', false, true);
         }
         redirect(route(''));
     }

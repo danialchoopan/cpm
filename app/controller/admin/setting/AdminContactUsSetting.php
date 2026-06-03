@@ -27,7 +27,7 @@ class AdminContactUsSetting
             $contact_us = $_POST['contact_us'];
             $setting_general_adapter = new GeneralSettingAdapter();
             if ($setting_general_adapter->update_contact_us($contact_us)) {
-                set_massage("ارتباط ما با موفیت بروز شد");
+                set_message("ارتباط ما با موفیت بروز شد");
             } else {
                 error_session();
             }

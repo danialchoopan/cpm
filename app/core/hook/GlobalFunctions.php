@@ -98,7 +98,7 @@ function user_auth_id($id)
     return $user_adapter->get_user_by_id($id);
 }
 
-function set_massage($msg, $status = 'primary', $harmane = false, $modal = false)
+function set_message($msg, $status = 'primary', $harmane = false, $modal = false)
 {
     $_SESSION['msg_from_insert_status'] = ['msg' => $msg, 'status' => $status, 'harmane' => $harmane, 'modal' => $modal];
 }

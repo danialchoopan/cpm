@@ -7,8 +7,10 @@ namespace App\controller\admin;
 use App\core\View;
 use App\database\adapter\ApplyCarAdapter;
 use App\database\adapter\BlogCommentAdapter;
+use App\database\adapter\ReviewAdapter;
 use App\database\adapter\UserTableAdapter;
 use App\database\adapter\ViewerAdapter;
+use App\database\adapter\CarAdapter;
 use App\database\model\User;
 use App\middleware\MiddlewareAdminLogin;
 
@@ -21,12 +23,30 @@ class AdminDashController
         $user_adapter = new UserTableAdapter();
         $apply_car_adapter = new ApplyCarAdapter();
         $comment_adapter = new BlogCommentAdapter();
+        $review_adapter = new ReviewAdapter();
+        $car_adapter = new CarAdapter();
+
         return View::Create('admin.dash', [
             'count_view' => $viewerAdapter->getCountViewAllTimes(),
             'count_users' => $user_adapter->count_all_users(),
             'count_apply_car' => $apply_car_adapter->count_all_apply_car(),
-            'count_comment_unread' => count($comment_adapter->confirmed(0))
+            'count_comment_unread' => count($comment_adapter->confirmed(0)),
+            'count_reviews' => count($review_adapter->all()),
+            'count_cars' => count($car_adapter->all()),
+            'count_pending_cars' => count(array_filter($car_adapter->all(), function($c) { return !$c['is_approved']; }))
         ]);
+    }
+
+    public function approve_car()
+    {
+        $id = $_POST['id'];
+        $car_adapter = new CarAdapter();
+        if ($car_adapter->approve($id)) {
+            set_message('آگهی با موفقیت تایید شد', 'success');
+        } else {
+            set_message('خطا در تایید آگهی', 'danger');
+        }
+        redirect(route('admin/dash/cars'));
     }
 
     public function show_view()

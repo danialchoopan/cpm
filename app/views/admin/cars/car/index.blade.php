@@ -1,63 +1,64 @@
 @extends('admin.template.admin')
-@section('title','نمایش خودرو ها')
-@section('title_content','خودرو  ها')
+@section('title', 'مدیریت آگهی‌ها')
+@section('title_content', 'لیست کل آگهی‌های خودرو')
 @section('content')
-    @if(isset($_SESSION['msg_from_insert_status']))
-        <?php
-        $temp_session = flash_session('msg_from_insert_status');
-        ?>
-        <div class="alert alert-{{$temp_session['status']}}">
-            {{$temp_session['msg']}}
-        </div>
-    @endif
-    @if(count($cars)!=0)
-        <div class="row">
-            <div class="col text-left">
-                <a href="{{route('admin/dash/cars/create')}}" class="btn btn-primary mb-2">افزودن خودرو</a>
-            </div>
-        </div>
-        <table class="table table-hover">
-            <thead class="thead-dark">
-            <tr>
-                <th scope="col">#</th>
-                <th scope="col">نام</th>
-                <th scope="col">قیمت</th>
-                <th scope="col">برند</th>
-                <th scope="col">ساخته شده در</th>
-                <th scope="col">بروزرسانی شده در</th>
+<div class="overflow-x-auto" dir="rtl">
+    <table class="w-full text-right border-collapse">
+        <thead>
+            <tr class="bg-gray-100 text-gray-700 text-sm">
+                <th class="p-3 border">تصویر</th>
+                <th class="p-3 border">نام خودرو</th>
+                <th class="p-3 border">قیمت (تومان)</th>
+                <th class="p-3 border">شهر</th>
+                <th class="p-3 border">سال</th>
+                <th class="p-3 border">تایید مدیر</th>
+                <th class="p-3 border">وضعیت فروش</th>
+                <th class="p-3 border">عملیات</th>
             </tr>
-            </thead>
-            <tbody>
+        </thead>
+        <tbody>
             @foreach($cars as $car)
                 <?php
                 $photo_adapter = new \App\database\adapter\PhotoAdapter();
-                $brand_adapter = new \App\database\adapter\BrandAdapter();
-                $brand = $brand_adapter->find($car['brand_id']);
+                $car_photo = $photo_adapter->find($car['photo_id'])['name'] ?? 'default-car.jpg';
                 ?>
-                <tr>
-                    <th scope="row">{{$car['id']}}</th>
-                    <td>
-                        <a href="{{route("admin/dash/cars/$car[id]/edit")}}">{{$car['name']}}</a>
+                <tr class="border-b hover:bg-gray-50 transition">
+                    <td class="p-3 border">
+                        <img src="{{ show_img_user($car_photo) }}" class="w-16 h-12 object-cover rounded">
                     </td>
-                    <td>{{number_format($car['price'])}} تومان</td>
-                    <td>
-                        <img src="{{show_img_user($photo_adapter->find($brand['photo_id'])['name'])}}"
-                             alt="عکس پیدا نشد"
-                             width="50px" height="50px">
-                        {{$brand['name']}}
+                    <td class="p-3 border font-bold">{{ $car['name'] }}</td>
+                    <td class="p-3 border">{{ number_format((float)$car['price']) }}</td>
+                    <td class="p-3 border text-sm">{{ $car['city'] }}</td>
+                    <td class="p-3 border text-sm">{{ $car['year'] }}</td>
+                    <td class="p-3 border">
+                        @if($car['is_approved'])
+                            <span class="text-green-600 font-bold text-xs">تایید شده</span>
+                        @else
+                            <form action="{{ route('admin/dash/cars/approve') }}" method="POST">
+                                <input type="hidden" name="id" value="{{ $car['id'] }}">
+                                <button type="submit" class="bg-orange-500 text-white px-2 py-1 rounded text-xs hover:bg-orange-600 transition">تایید آگهی</button>
+                            </form>
+                        @endif
                     </td>
-                    <td>{{show_date_php($car['created_at'])}}</td>
-                    <td>{{show_date_php($car['updated_at'])}}</td>
+                    <td class="p-3 border">
+                        @if($car['is_car_open_for_sell'])
+                            <span class="bg-green-100 text-green-700 px-2 py-1 rounded-full text-xs">فعال</span>
+                        @else
+                            <span class="bg-red-100 text-red-700 px-2 py-1 rounded-full text-xs">غیرفعال</span>
+                        @endif
+                    </td>
+                    <td class="p-3 border">
+                        <div class="flex space-x-reverse space-x-2">
+                            <a href="{{ route("admin/dash/cars/$car[id]/edit") }}" class="text-blue-500 hover:underline text-sm">ویرایش</a>
+                            <form action="{{ route('admin/dash/cars/destroy') }}" method="POST" onsubmit="return confirm('آیا مطمئن هستید؟')">
+                                <input type="hidden" name="id" value="{{ $car['id'] }}">
+                                <button type="submit" class="text-red-500 hover:underline text-sm">حذف</button>
+                            </form>
+                        </div>
+                    </td>
                 </tr>
             @endforeach
-            </tbody>
-        </table>
-    @else
-        <div class="row m-1">
-            <div class="col text-center">
-                <h4>متاسفانه خودرویی برای نمایش وجود ندارد</h4>
-                <a href="{{route('admin/dash/cars/create')}}">افزودن خودرو</a>
-            </div>
-        </div>
-    @endif
+        </tbody>
+    </table>
+</div>
 @endsection

@@ -54,7 +54,7 @@ class UserProfileController
         $user_adapter->update_profile_photo(0);
         //end update img
 
-        set_massage('پروفایل شما حذف شد', 'success');
+        set_message('پروفایل شما حذف شد', 'success');
         redirect(route('profile/user'));
     }
 
@@ -66,14 +66,14 @@ class UserProfileController
         $user_adapter = new UserTableAdapter();
         if ($password == $re_password) {
             $result_change_password = $user_adapter->change_password_user($old_password, $password);
-            set_massage($result_change_password['msg'], $result_change_password['status']);
+            set_message($result_change_password['msg'], $result_change_password['status']);
             if ($result_change_password['status'] == 'success') {
                 redirect(route('profile/user'));
             } else {
                 redirect(route('profile/user/change/password'));
             }
         } else {
-            set_massage('رمز عبور با تکرار آن برابر نیست !', 'warning');
+            set_message('رمز عبور با تکرار آن برابر نیست !', 'warning');
             redirect(route('profile/user/change/password'));
         }
     }
@@ -110,10 +110,10 @@ class UserProfileController
                 $file_photo->storeAssetsImg();
                 $user_adapter->update_profile_photo($new_photo_id);
             }
-            set_massage('پروفایل مورد نظر شما با موفیت آپلود شد', 'success');
+            set_message('پروفایل مورد نظر شما با موفیت آپلود شد', 'success');
             redirect(route('profile/user'));
         } else {
-            set_massage('لطفا سایر و فرمت و نوع فایل را برسی کنید فایل مورد نظر باید عکس باشید و کمتر از 512KB', 'warning');
+            set_message('لطفا سایر و فرمت و نوع فایل را برسی کنید فایل مورد نظر باید عکس باشید و کمتر از 512KB', 'warning');
             redirect(route('profile/user/edit'));
         }
     }
@@ -171,10 +171,10 @@ class UserProfileController
 
             $level3_adapter = new Level3ApplyAdapter();
             $level3_adapter->insert($id_request, $id_card_meli_img, $id_shesname_photo_img, $id_check_photo_img);
-            set_massage("تکمیل مدارک شما ارسال پس از تایید اقساط برای شما در قسمت پروفایل نمایش داده خواهد شد", "success", true, true);
+            set_message("تکمیل مدارک شما ارسال پس از تایید اقساط برای شما در قسمت پروفایل نمایش داده خواهد شد", "success", true, true);
             return redirect(route(""));
         } else {
-            set_massage('لطفا سایر و فرمت و نوع فایل را برسی کنید فایل مورد نظر باید عکس باشید و کمتر از 2M', 'warning');
+            set_message('لطفا سایر و فرمت و نوع فایل را برسی کنید فایل مورد نظر باید عکس باشید و کمتر از 2M', 'warning');
             return redirect(route("profile/user/level/3/apply/$id_request"));
         }
     }

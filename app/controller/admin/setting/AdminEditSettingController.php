@@ -43,18 +43,18 @@ class AdminEditSettingController
                 $user_admin_adapter_tmp = $user_admin_model_temp_adapter->find($user_admin_id);
                 if (md5($old_password) == $user_admin_adapter_tmp['password']) {
                     if ($new_password != $re_new_password) {
-                        set_massage('رمز عبور ها برار نیستند', 'warning');
+                        set_message('رمز عبور ها برار نیستند', 'warning');
                         return redirect(route('admin/dash/setting/edit/admin'));
                     } else {
                         $user_admin_model->setPassword($new_password);
                     }
                 } else {
-                    set_massage('رمزعبور شما اشتباه است', 'danger');
+                    set_message('رمزعبور شما اشتباه است', 'danger');
                     return redirect(route('admin/dash/setting/edit/admin'));
                 }
             endif;
             if ($user_admin_model_temp_adapter->update($user_admin_model)) {
-                set_massage('اطلاعات شما با موفقیت بروز شد', 'success');
+                set_message('اطلاعات شما با موفقیت بروز شد', 'success');
             } else {
                 error_session();
             }

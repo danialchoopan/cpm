@@ -39,7 +39,7 @@ class AdminAuthController
                     redirect(route('admin/dash'));
                     break;
                 case 2:
-                    set_massage('نام کاربری یا رمز عبور اشتباه است', 'danger');
+                    set_message('نام کاربری یا رمز عبور اشتباه است', 'danger');
                     redirect(route('admin'));
                     break;
                 case 3:

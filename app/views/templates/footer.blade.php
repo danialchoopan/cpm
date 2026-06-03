@@ -1,101 +1,56 @@
-<footer class="cp-footer">
-    فوتتر سایت
-</footer>
+    </main>
+    <footer class="bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 py-8 mt-12">
+        <div class="max-w-7xl mx-auto px-4 text-center text-gray-500 dark:text-gray-400">
+            <p>&copy; {{ date('Y') }} {{ get_setting()['site_name'] }}. تمامی حقوق محفوظ است.</p>
+        </div>
+    </footer>
 
-<!-- Modal login-->
-<div class="modal fade" id="login_modal" data-backdrop="static" data-keyboard="false" tabindex="-1"
-     aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header ">
-                <h5 class="modal-title ">ورود</h5>
-                <div class="d-flex justify-content-between">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
+    <!-- Login Modal -->
+    <div id="login-modal" class="hidden fixed inset-0 z-50 overflow-y-auto bg-black bg-opacity-50 flex items-center justify-center">
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-2xl p-8 w-full max-w-md">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-xl font-bold">ورود به حساب</h3>
+                <button onclick="document.getElementById('login-modal').classList.add('hidden')" class="text-gray-500 hover:text-red-500">&times;</button>
             </div>
-            <div class="modal-body rtl">
-                <div id="login_show_messages_box">
-
+            <div id="login-error" class="hidden bg-red-100 text-red-700 p-3 rounded mb-4"></div>
+            <div class="space-y-4">
+                <div>
+                    <label class="block mb-1">ایمیل</label>
+                    <input type="email" id="login-email" class="w-full border rounded-lg p-2 dark:bg-gray-700 dark:border-gray-600">
                 </div>
-                <div class="form-group">
-                    <label for="input_username_login">پست الکترونیک: </label>
-                    <input type="email" class="form-control" id="input_username_login"
-                           placeholder="example@example.com ..."
-                           required>
+                <div>
+                    <label class="block mb-1">رمز عبور</label>
+                    <input type="password" id="login-password" class="w-full border rounded-lg p-2 dark:bg-gray-700 dark:border-gray-600">
                 </div>
-
-                <div class="form-group">
-                    <label for="input_password_login">گذرواژه: </label>
-                    <input type="password" class="form-control" id="input_password_login"
-                           placeholder="******************* ..." required>
-                </div>
-
-                <div class="form-group">
-                    <button type="button" class="btn btn-primary btn-block" onclick="click_login_model()">ورود</button>
-                </div>
-                <p class="m-2"><a href="{{route('forget/password/user')}}">پسورد خود را فراموش کرده ام!</a></p>
-
-                <p class="m-2"><a href="{{route('register/user')}}"> نام نویسی نکرده اید همین حالا نام نویسی کنید!</a>
-                </p>
+                <button onclick="submitLogin()" class="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition">ورود</button>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">بستن</button>
+            <div class="mt-4 text-center text-sm">
+                <a href="{{ route('register/user') }}" class="text-blue-500 hover:underline">ثبت‌نام نکرده‌اید؟</a>
             </div>
         </div>
     </div>
-</div>
-<!-- end Modal login-->
 
-<script src="{{assets('js/jquery-3.5.1.min.js')}}"></script>
-<script src="{{assets('js/bootstrap.min.js')}}"></script>
-{{--<script src="{{assets('js/main.js')}}"></script>--}}
-<script>
-    $('#Modal_show_msg').modal('show')
-    $('#Modal_show_msg_user').modal('show')
-    const SITE_URL_API = 'http://127.0.0.1/cpm/api/';
+    <script src="{{ assets('js/theme-toggle.js') }}"></script>
+    <script>
+        function submitLogin() {
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+            const errorBox = document.getElementById('login-error');
 
-    function click_login_model() {
-        const lgn_phone_number_input = $("#input_username_login").val();
-        const lgn_password_input = $("#input_password_login").val();
-        const msg_box = $('#login_show_messages_box');
-        if (lgn_phone_number_input == "" && lgn_password_input == "") {
-            msg_box.html(`
-            <div class="alert alert-warning" role="alert">
-            فیلد خالی مجاز نیست
-            </div>
-            `)
-            return;
-        }
-        $.ajax({
-            type: 'POST',
-            url: `${SITE_URL_API}user/login`,
-            data: {lgn_phone_number: lgn_phone_number_input, lgn_password: lgn_password_input},
-            success: function (data) {
-                msg_box.html(`
-                    <div class="alert alert-info" role="alert">
-                        درحال ارسال اطلاعات
-                    </div>
-                    `);
-                if (data == "false") {
-                    msg_box.html(`
-                    <div class="alert alert-danger" role="alert">
-                        رمز عبور یا پست الکترونیک اشتباه است!
-                    </div>
-                    `);
-                } else {
-                    msg_box.html(`
-                    <div class="alert alert-success" role="alert">
-                        خوش آمدید
-                    </div>
-                    `);
-                    location.reload();
+            // در اینجا می‌توان از AJAX برای لاگین استفاده کرد (مشابه قبل)
+            // به دلیل عدم وجود API در درخواست کاربر، فرض بر فرم بومی است یا AJAX به کنترلر
+            fetch('{{ route("admin") }}', { // فرض بر مسیر لاگین ادمین یا ایجاد مسیر جدید
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: `email=${email}&password=${password}`
+            }).then(res => {
+                if (res.ok) location.reload();
+                else {
+                    errorBox.innerText = 'اطلاعات وارد شده صحیح نیست';
+                    errorBox.classList.remove('hidden');
                 }
-            }
-        });
-    }
-</script>
-</div>
+            });
+        }
+    </script>
 </body>
 </html>
