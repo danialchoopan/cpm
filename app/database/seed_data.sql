@@ -125,13 +125,14 @@ INSERT INTO `photo` (`name`, `created_at`) VALUES
 ('samand.jpg', 1672531200);
 
 -- درج ادمین فرضی
+-- درج ادمین فرضی (رمز عبور: admin)
 INSERT INTO `admins` (`full_name`, `username`, `password`, `created_date`) VALUES
-('مدیر سیستم', 'admin', 'admin', 1672531200);
+('مدیر سیستم', 'admin', '$2y$10$i8sFe71DtJSVSHnzHldX4.k/ztcM9/khbzKEY4ZECtlwc4gzUqZF2', 1672531200);
 
--- درج کاربران فرضی
+-- درج کاربران فرضی (رمز عبور هر دو: 123456)
 INSERT INTO `users` (`full_name`, `password`, `email`, `phone_number`, `created_date`, `email_confrimed`, `phone_confrimed`) VALUES
-('احمد محمدی', 'e10adc3949ba59abbe56e057f20f883e', 'ahmad@example.com', '09121112233', 1672531200, 1, 1),
-('سارا علوی', 'e10adc3949ba59abbe56e057f20f883e', 'sara@example.com', '09122223344', 1672617600, 1, 1);
+('احمد محمدی', '$2y$10$A/UPYl5yNOPTJPvRdfK/muNV/fPoUFEskgqU8UmRR0pF1Vf5Lyp8y', 'ahmad@example.com', '09121112233', 1672531200, 1, 1),
+('سارا علوی', '$2y$10$A/UPYl5yNOPTJPvRdfK/muNV/fPoUFEskgqU8UmRR0pF1Vf5Lyp8y', 'sara@example.com', '09122223344', 1672617600, 1, 1);
 
 -- درج خودروهای فرضی
 INSERT INTO `car` (`brand_id`, `condition_id`, `photo_id`, `name`, `description`, `province`, `city`, `mileage`, `year`, `price`, `is_car_open_for_sell`, `is_approved`, `created_at`, `updated_at`) VALUES

@@ -105,7 +105,7 @@ VALUES (?,?,?,?,?)";
             $reset_password_table->execute([$token]);
             $user_id = $reset_password_table->fetch(2)['user_id'];
             $user_table = $this->databaseConnection->prepare("UPDATE `users` SET `password`=? WHERE `id`=?");
-            $user_table->execute([md5($password), $user_id]);
+            $user_table->execute([password_hash($password, PASSWORD_DEFAULT), $user_id]);
             $reset_password_table_2 = $this->databaseConnection->prepare("DELETE FROM `send_reset_password` WHERE `token`=?");
             $reset_password_table_2->execute([$token]);
             return true;

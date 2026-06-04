@@ -41,7 +41,7 @@ class AdminEditSettingController
                 $new_password = $_POST['new_password'];
                 $re_new_password = $_POST['re_new_password'];
                 $user_admin_adapter_tmp = $user_admin_model_temp_adapter->find($user_admin_id);
-                if (md5($old_password) == $user_admin_adapter_tmp['password']) {
+                if (password_verify($old_password, $user_admin_adapter_tmp['password'])) {
                     if ($new_password != $re_new_password) {
                         set_message('رمز عبور ها برار نیستند', 'warning');
                         return redirect(route('admin/dash/setting/edit/admin'));
