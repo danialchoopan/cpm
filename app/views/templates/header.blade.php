@@ -5,13 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="stylesheet" href="{{ assets('css/tailwind.min.css') }}">
     <link rel="stylesheet" href="{{ assets('css/dark-fix.css') }}">
+    <link rel="stylesheet" href="{{ assets('font/vazirmatn/Vazirmatn-font-face.css') }}">
     <style>
-        @font-face {
-            font-family: 'Vazir';
-            src: local('Vazir'), url("{{ assets('fonts/Vazir.woff2') }}") format('woff2');
-        }
         body {
-            font-family: 'Vazir', sans-serif;
+            font-family: 'Vazirmatn', sans-serif;
         }
     </style>
     <title>@yield('title') | {{ get_setting()['site_name'] }}</title>

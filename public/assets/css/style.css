@@ -1,3 +1,4 @@
+@import url("../font/vazirmatn/Vazirmatn-font-face.css");
 * {
   direction: rtl !important;
   padding: 0;
@@ -5,7 +6,7 @@
   box-sizing: border-box;
   text-decoration: none;
   outline: none;
-  font-family: "shabnam FD";
+  font-family: "Vazirmatn", sans-serif;
 }
 
 body {

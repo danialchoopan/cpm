@@ -13,15 +13,14 @@ class UserAdminTableAdapter extends DatabaseConnection
     {
         $db = $this->databaseConnection->prepare("SELECT `id`, `full_name`, `username`, `password`, `phone_number`, `remmber_token`, `created_date` FROM `admins` WHERE `username`=?");
         if ($db->execute([$userAdmin->getUsername()])) {
-            $admin_data = $db->fetch(2);
-            if ($admin_data) {
+            if ($db->rowCount() != 0) {
+                $admin_data = $db->fetch(2);
                 if (password_verify($userAdmin->getPassword(), $admin_data['password'])) {
                     unset($admin_data['password']);
                     $_SESSION['auth_admin'] = $admin_data;
                     return 1;
-                } else {
-                    return 2;
                 }
+                return 2;
             } else {
                 //username or password are invalid
                 return 2;

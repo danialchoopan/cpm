@@ -28,8 +28,8 @@ VALUES (?,?,?,?,?)";
     {
         $db = $this->databaseConnection->prepare("SELECT `id`,`full_name`,`password` FROM `users` WHERE `email`=?");
         $db->execute([$user->getEmail()]);
-        $user_data = $db->fetch(2);
-        if ($user_data) {
+        if ($db->rowCount() != 0) {
+            $user_data = $db->fetch(2);
             if (password_verify($user->getPassword(), $user_data['password'])) {
                 unset($user_data['password']);
                 $_SESSION['user_auth'] = $user_data;
