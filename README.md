@@ -11,6 +11,18 @@
 - اضافه شدن جزئیات فنی خودرو (استان، شهر، کارکرد، سال).
 - معماری کاملاً محلی (بدون وابستگی به CDN یا کلود).
 
+
+## اسکرین‌شات‌ها
+
+### صفحه اصلی
+![صفحه اصلی در تم روشن](./public/assets/img/screenshots/home_light.png)
+
+### جزئیات آگهی و نظرات
+![جزئیات خودرو](./public/assets/img/screenshots/car_details.png)
+
+### داشبورد مدیریت کل
+![پنل ادمین](./public/assets/img/screenshots/admin_dashboard.png)
+
 ## پیش‌نیازها
 - PHP 7.4 یا بالاتر
 - MySQL یا MariaDB
@@ -39,17 +51,3 @@
     - **assets/**: تمامی فایل‌های محلی (CSS، JS، فونت وزیرمتن، تصاویر).
     - **index.php**: فایل اصلی اجرایی.
 - **vendor/**: وابستگی‌های نصب شده توسط Composer.
-
-## اسکرین‌شات‌ها
-
-### صفحه اصلی
-![صفحه اصلی در تم روشن](./public/assets/img/screenshots/home_light.png)
-
-### جزئیات آگهی و نظرات
-![جزئیات خودرو](./public/assets/img/screenshots/car_details.png)
-
-### داشبورد مدیریت کل
-![پنل ادمین](./public/assets/img/screenshots/admin_dashboard.png)
-
-## توسعه‌دهندگان
-این پروژه توسط Jules ارتقا یافته و بهینه‌سازی شده است. تمامی کدها تحت لیسانس MIT می‌باشند.
